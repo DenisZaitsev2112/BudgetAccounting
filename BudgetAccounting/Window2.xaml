@@ -1,0 +1,21 @@
+﻿<Window x:Class="BudgetTracker.EditRecordWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактировать запись" Height="150" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Input field for editing the record -->
+        <TextBox x:Name="editedRecordTextBox" Grid.Row="0" Margin="10"/>
+
+        <!-- Buttons "Save" and "Cancel" -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Сохранить" Width="80" Click="Save_Click"/>
+            <Button Content="Отмена" Width="80" Click="Cancel_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

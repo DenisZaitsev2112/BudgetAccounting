@@ -1,0 +1,84 @@
+﻿<Window x:Class="BudgetTracker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Budget Tracker" Height="400" Width="600">
+    <Window.Resources>
+        <Style x:Key="PlaceholderTextBox" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <ScrollViewer x:Name="PART_ContentHost" />
+                                <TextBlock x:Name="PlaceholderText" Text="Имя записи" Visibility="Collapsed" Foreground="Gray" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsFocused" Value="False"/>
+                                    <Condition Property="Text" Value=""/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Date selection row -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <DatePicker x:Name="datePicker" Margin="10"/>
+        </StackPanel>
+
+        <!-- Record type selection -->
+        <ComboBox x:Name="recordTypesComboBox" Grid.Row="1" Margin="10">
+            <!-- Здесь будут добавлены типы записи из вашего списка сохраненных типов -->
+        </ComboBox>
+
+        <!-- Entry name input -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+
+            <TextBlock Text="Имя записи:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBox x:Name="entryNameTextBox" Width="150" Style="{StaticResource PlaceholderTextBox}" Margin="0,0,10,0"/>
+            <Button Content="Создать новый тип записи" Click="CreateNewRecordType_Click"/>
+        </StackPanel>
+
+        <!-- Button to create a new record -->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Создать запись" Margin="0,0,10,0" Click="CreateRecord_Click"/>
+            <Button Content="Изменить запись" Margin="0,0,10,0" Click="EditRecord_Click"/>
+            <Button Content="Удалить запись" Click="DeleteRecord_Click"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Money:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBox x:Name="moneyTextBox" Width="150" Margin="0,0,10,0"/>
+            </StackPanel>
+        </StackPanel>
+
+
+
+        <!-- List of records -->
+        <ListView x:Name="recordsListView" Grid.Row="4" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Запись" Width="400" DisplayMemberBinding="{Binding}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <TextBlock Text="Итог: "/>
+            <TextBlock x:Name="totalTextBlock" VerticalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Window>
